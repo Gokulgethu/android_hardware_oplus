@@ -29,4 +29,10 @@ SYSTEM_EXT_PUBLIC_SEPOLICY_DIRS += \
     hardware/oplus/sepolicy/qti/public/common-um
 endif
 
+# [udon] only pull in the LineageOS libperfmgr sepolicy when the
+# device/lineage tree is actually present (non-LineageOS based ROMs,
+# e.g. PenguinOS/AOSPA, do not carry device/lineage and previously died
+# at product-config parse time with 'No such file or directory')
+ifneq (,$(wildcard device/lineage/sepolicy/libperfmgr/sepolicy.mk))
 include device/lineage/sepolicy/libperfmgr/sepolicy.mk
+endif
